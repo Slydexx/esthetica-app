@@ -114,9 +114,13 @@ const App: React.FC = () => {
         lang
       );
       
-      // SAVE RESULT TO LOCAL STORAGE
-      // This ensures data isn't lost when redirecting to/from Stripe
-      localStorage.setItem('esthetica_last_analysis', JSON.stringify(result));
+      // SAVE RESULT TO LOCAL STORAGE (Protected)
+      try {
+        localStorage.setItem('esthetica_last_analysis', JSON.stringify(result));
+      } catch (e) {
+        console.warn("Local storage full, result not persisted", e);
+        // We do NOT throw here, we let the user see the result anyway
+      }
 
       setAnalysisResult(result);
       setStep('results');
@@ -167,8 +171,13 @@ const App: React.FC = () => {
           };
 
           setAnalysisResult(newResult);
-          // Update local storage with new regeneration
-          localStorage.setItem('esthetica_last_analysis', JSON.stringify(newResult));
+          
+          // Update local storage (Protected)
+          try {
+            localStorage.setItem('esthetica_last_analysis', JSON.stringify(newResult));
+          } catch (e) {
+             console.warn("Storage full during regen save", e);
+          }
           
       } catch (e) {
           console.error("Regeneration failed", e);
@@ -412,3 +421,4 @@ const App: React.FC = () => {
 };
 
 export default App;
+    
