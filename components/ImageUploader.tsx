@@ -1,4 +1,3 @@
-
 import React, { useState, useRef } from 'react';
 import { UploadCloudIcon, XIcon } from './icons';
 import { t } from '../i18n';
@@ -39,7 +38,8 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImagesUpload }) 
         const ctx = canvas.getContext('2d');
         if (ctx) {
           ctx.drawImage(img, 0, 0, width, height);
-          const dataUrl = canvas.toDataURL('image/jpeg', 0.85); 
+          // Reduced quality from 0.85 to 0.65 to prevent LocalStorage quota exceeded errors
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.65); 
           resolve(dataUrl);
         } else {
           reject(new Error("Canvas context not available"));
@@ -152,3 +152,4 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImagesUpload }) 
     </div>
   );
 };
+    
