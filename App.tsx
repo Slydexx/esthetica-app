@@ -263,13 +263,17 @@ const App: React.FC = () => {
                         </>
                     ) : (
                         <div className="w-full h-full bg-black flex items-center justify-center">
-                             <iframe 
-                                className="w-full h-full"
-                                src="https://www.youtube.com/embed/Li5-1yJz5So?autoplay=1&rel=0&modestbranding=1&controls=1" 
+                             {/* LOCAL VIDEO PLAYER - Looks for /promo.mp4 in public folder */}
+                             <video 
+                                className="w-full h-full object-cover"
+                                src="/promo.mp4" 
                                 title="Esthetica AI Promo" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowFullScreen
-                            ></iframe>
+                                controls
+                                autoPlay
+                                muted
+                                loop
+                                playsInline
+                            />
                         </div>
                     )}
                 </div>
